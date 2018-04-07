@@ -6,10 +6,11 @@ public class Player : MonoBehaviour {
 
     public float jumpDistance = 0.32f;
     private bool jumped;
+    private Vector2 startingPosition;
 
 	// Use this for initialization
 	void Start () {
-		
+        startingPosition = transform.position;
 	}
 	
 	// Update is called once per frame
@@ -43,5 +44,34 @@ public class Player : MonoBehaviour {
                 jumped = false;
             }
         }
-	}
+
+        if (transform.position.y < -(Screen.height / 100f / 2f))
+        {
+            transform.position = new Vector2(
+                transform.position.x,
+                transform.position.y + jumpDistance
+            );
+        }
+
+        if (transform.position.y > (Screen.height / 100f / 2f))
+        {
+            transform.position = startingPosition;
+        }
+
+        if (transform.position.x < -(Screen.width / 100f / 2f))
+        {
+            transform.position = new Vector2(
+                transform.position.x + jumpDistance,
+                transform.position.y
+            );
+        }
+
+        if (transform.position.x > (Screen.width / 100f / 2f))
+        {
+            transform.position = new Vector2(
+                transform.position.x - jumpDistance,
+                transform.position.y
+            );
+        }
+    }
 }
