@@ -20,21 +20,32 @@ public class Player : MonoBehaviour {
 
         if (!jumped)
         {
+            Vector2 targetPositon = Vector2.zero;
+            bool tryingToMove = false;
+
             if (horizontalMovement != 0)
             {
-                transform.position = new Vector2(
+                tryingToMove = true;
+                targetPositon = new Vector2(
                     transform.position.x + (horizontalMovement > 0 ? jumpDistance : -jumpDistance),
                     transform.position.y
                 );
-                jumped = true;
             }
 
             if (verticalMovement != 0)
             {
-                transform.position = new Vector2(
+                tryingToMove = true;
+                targetPositon = new Vector2(
                     transform.position.x,
                     transform.position.y + (verticalMovement > 0 ? jumpDistance : -jumpDistance)
                 );
+            }
+
+            Collider2D hitCollider = Physics2D.OverlapCircle(targetPositon, 0.1f);
+
+            if (tryingToMove == true && hitCollider == null)
+            {
+                transform.position = targetPositon;
                 jumped = true;
             }
         } else
