@@ -47,7 +47,7 @@ public class Player : MonoBehaviour {
 
             Collider2D hitCollider = Physics2D.OverlapCircle(targetPositon, 0.1f);
 
-            if (tryingToMove == true && hitCollider == null)
+            if (tryingToMove == true && (hitCollider == null || hitCollider.GetComponent<Enemy>() != null))
             {
                 transform.position = targetPositon;
                 jumped = true;
@@ -95,6 +95,14 @@ public class Player : MonoBehaviour {
                 transform.position.x - jumpDistance,
                 transform.position.y
             );
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D otherCollider)
+    {
+        if (otherCollider.GetComponent<Enemy>() != null)
+        {
+            Destroy(gameObject);
         }
     }
 }
