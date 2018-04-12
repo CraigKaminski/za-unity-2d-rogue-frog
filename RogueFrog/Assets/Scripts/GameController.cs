@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour {
     public Text scoreText;
     public Text levelText;
     public Text gameOverText;
+    public float difficultyIncrease = 1.2f;
 
     private float highestPosition;
     private int score = 0;
@@ -53,5 +54,10 @@ public class GameController : MonoBehaviour {
         highestPosition = player.transform.position.y;
         level++;
         levelText.text = "Level: " + level;
+        
+        foreach (Enemy enemy in GetComponentsInChildren<Enemy>())
+        {
+            enemy.speed *= difficultyIncrease;
+        }
     }
 }
