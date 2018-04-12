@@ -51,6 +51,7 @@ public class Player : MonoBehaviour {
             {
                 transform.position = targetPositon;
                 jumped = true;
+                GetComponent<AudioSource>().Play();
                 if (OnPlayerMoved != null)
                 {
                     OnPlayerMoved();
